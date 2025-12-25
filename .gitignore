@@ -1,0 +1,36 @@
+# Environment files
+.env
+.env.local
+
+# Data directory (содержит базу данных с паролями)
+data/
+!data/.gitkeep
+
+# Backups
+backups/
+*.db
+*.sql
+
+# Logs
+logs/
+*.log
+
+# SSL Certificates
+*.crt
+*.key
+*.pem
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
