@@ -286,7 +286,7 @@ install_certificate() {
     mkdir -p "$CERT_DIR"
 
     # Устанавливаем сертификат с auto-renewal
-    "$ACME_BIN" --install-cert -d "$DOMAIN" \
+    "$ACME_BIN" --install-cert -d "$DOMAIN" --server letsencrypt \
         --key-file "${CERT_DIR}/privkey.pem" \
         --fullchain-file "${CERT_DIR}/fullchain.pem" \
         --reloadcmd "cd $PROJECT_DIR && docker compose restart 3x-ui" \
