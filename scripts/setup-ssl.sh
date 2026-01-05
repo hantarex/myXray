@@ -58,9 +58,9 @@ check_dependencies() {
         missing_deps+=("docker")
     fi
 
-    # Проверка docker-compose
-    if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null; then
-        missing_deps+=("docker-compose")
+    # Проверка docker compose
+    if ! command -v docker &> /dev/null && ! docker compose version &> /dev/null; then
+        missing_deps+=("docker compose")
     fi
 
     # Проверка curl
@@ -234,8 +234,8 @@ stop_container() {
 
     cd "$PROJECT_DIR"
 
-    if docker-compose ps | grep -q "3x-ui.*Up"; then
-        docker-compose stop 3x-ui 2>&1 | tee -a "$LOG_FILE"
+    if docker compose ps | grep -q "3x-ui.*Up"; then
+        docker compose stop 3x-ui 2>&1 | tee -a "$LOG_FILE"
         log_info "Контейнер остановлен: OK"
     else
         log_info "Контейнер уже остановлен"
@@ -247,7 +247,7 @@ start_container() {
     log_step "Запуск контейнера 3x-ui..."
 
     cd "$PROJECT_DIR"
-    docker-compose start 3x-ui 2>&1 | tee -a "$LOG_FILE"
+    docker compose start 3x-ui 2>&1 | tee -a "$LOG_FILE"
 
     log_info "Контейнер запущен: OK"
 }
@@ -289,7 +289,7 @@ install_certificate() {
     "$ACME_BIN" --install-cert -d "$DOMAIN" \
         --key-file "${CERT_DIR}/privkey.pem" \
         --fullchain-file "${CERT_DIR}/fullchain.pem" \
-        --reloadcmd "cd $PROJECT_DIR && docker-compose restart 3x-ui" \
+        --reloadcmd "cd $PROJECT_DIR && docker compose restart 3x-ui" \
         2>&1 | tee -a "$LOG_FILE"
 
     if [ ! -f "${CERT_DIR}/privkey.pem" ] || [ ! -f "${CERT_DIR}/fullchain.pem" ]; then
