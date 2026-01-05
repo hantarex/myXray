@@ -260,14 +260,14 @@ obtain_certificate() {
     if "$ACME_BIN" --list | grep -q "$DOMAIN"; then
         log_info "Сертификат для $DOMAIN уже существует"
         log_info "Обновляем существующий сертификат..."
-        "$ACME_BIN" --renew -d "$DOMAIN" --force 2>&1 | tee -a "$LOG_FILE" || {
+        "$ACME_BIN" --renew -d "$DOMAIN" --server letsencrypt --force 2>&1 | tee -a "$LOG_FILE" || {
             log_warn "Не удалось обновить. Пробуем получить новый..."
         }
     fi
 
     # Получаем сертификат через standalone режим
     log_info "Запрос сертификата для домена: $DOMAIN"
-    "$ACME_BIN" --issue --standalone -d "$DOMAIN" --force 2>&1 | tee -a "$LOG_FILE" || {
+    "$ACME_BIN" --issue --standalone -d "$DOMAIN" --server letsencrypt --force 2>&1 | tee -a "$LOG_FILE" || {
         log_error "Не удалось получить сертификат"
         log_info "Проверьте логи: $LOG_FILE"
         log_info "Убедитесь, что порт 80 доступен извне"
