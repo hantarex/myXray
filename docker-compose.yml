@@ -6,12 +6,16 @@ services:
     container_name: 3x-ui
     restart: unless-stopped
     network_mode: host
+    privileged: true
     environment:
       - XRAY_VMESS_AEAD_FORCED=false
+      - TZ=Europe/Mosco
     volumes:
       - ./data/x-ui.db:/etc/x-ui/x-ui.db
       - ./data/cert:/root/cert
     tty: true
+    devices:
+      - /dev/net/tun:/dev/net/tun
 
 #  watchtower:
 #    image: containrrr/watchtower
