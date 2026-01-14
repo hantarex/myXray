@@ -9,7 +9,7 @@ services:
     privileged: true
     environment:
       - XRAY_VMESS_AEAD_FORCED=false
-      - TZ=Europe/Mosco
+      - TZ=Europe/Moscow
     volumes:
       - ./data/x-ui.db:/etc/x-ui/x-ui.db
       - ./data/cert:/root/cert
